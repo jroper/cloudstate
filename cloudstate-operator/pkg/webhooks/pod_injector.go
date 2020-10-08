@@ -42,13 +42,15 @@ type PodInjector struct {
 	log     logr.Logger
 	decoder *admission.Decoder
 	store   stores.Stores
+	config  *config.OperatorConfig
 }
 
-func NewPodInjector(client client.Client, log logr.Logger, store stores.Stores) *PodInjector {
+func NewPodInjector(client client.Client, log logr.Logger, store stores.Stores, config *config.OperatorConfig) *PodInjector {
 	return &PodInjector{
 		client: client,
 		log:    log,
 		store:  store,
+		config: config,
 	}
 }
 
@@ -319,7 +321,7 @@ func (p *PodInjector) injectSidecar(ctx context.Context, log logr.Logger, namesp
 			},
 			{
 				Name:  "METRICS_PORT",
-				Value: strconv.Itoa(9090),
+				Value: strconv.Itoa(int(i.config.SidecarMetrics.Port)),
 			},
 			{
 				Name:  "REMOTING_PORT",

@@ -13,6 +13,7 @@ type OperatorConfig struct {
 	Postgres  PostgresConfig        `yaml:"postgres"`
 	Spanner   SpannerConfig         `yaml:"spanner"`
 	Gcp       GcpConfig             `yaml:"gcp"`
+	SidecarMetrics SidecarMetricsConfig  `yaml:"sidecarMetrics"`
 }
 
 type NoStoreConfig struct {
@@ -62,6 +63,10 @@ func (o *OperatorConfig) Get(key string, obj interface{}) error {
 	return nil
 }
 
+type SidecarMetricsConfig struct {
+	Port    int32 `yaml:"port" env:"SIDECAR_METRICS_PORT"`
+}
+
 func ReadConfig(path string) (*OperatorConfig, error) {
 	config := &OperatorConfig{}
 	SetDefaults(config)
@@ -76,4 +81,5 @@ func SetDefaults(config *OperatorConfig) {
 	config.Postgres.GoogleCloudSql.Region = "us-east1"
 	config.Postgres.GoogleCloudSql.DefaultCores = 1
 	config.Postgres.GoogleCloudSql.DefaultMemory = "3840"
+	config.SidecarMetrics.Port = 9090
 }

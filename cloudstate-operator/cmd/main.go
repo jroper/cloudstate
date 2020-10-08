@@ -129,6 +129,7 @@ func main() {
 			mgr.GetClient(),
 			ctrl.Log.WithName("webhooks").WithName("PodInjector"),
 			store,
+			&cfg,
 		)})
 
 	if err = (&controllers.StatefulStoreReconciler{
