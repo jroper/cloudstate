@@ -406,6 +406,7 @@ lazy val `proxy-core` = (project in file("proxy/core"))
         "com.google.protobuf" % "protobuf-java" % ProtobufVersion % "protobuf",
         "com.google.protobuf" % "protobuf-java-util" % ProtobufVersion,
         "org.scalatest" %% "scalatest" % ScalaTestVersion % Test,
+        "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.30" % Test,
         akkaDependency("akka-testkit") % Test,
         akkaDependency("akka-stream-testkit") % Test,
         akkaHttpDependency("akka-http-testkit") % Test,
